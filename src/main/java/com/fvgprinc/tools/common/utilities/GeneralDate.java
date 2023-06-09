@@ -11,14 +11,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-
 /**
  *
  * @author fvargas
  */
 public class GeneralDate {
 
-        public static final double COMERCIALYEARDAYS = 360.0;
+    public static final double COMERCIALYEARDAYS = 360.0;
     public static final double NATURALYEARDAYS = 365.0;
     public static final int MESCOMERNUMDIAS = 30;
 
@@ -42,6 +41,12 @@ public class GeneralDate {
     static final int NOVEMBER = 11;
     static final int DECEMBER = 12;
     static double[] daysOfMonth365 = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    static String[] nameOfMonthSp = {"Enero", "Febrero", "Marzo", "Abril",
+        "Mayo", "Junio", "Julio", "Agosto",
+        "Setiembre", "Octubre", "Noviembre", "Diciembre"};
+    static String[] nameOfMonthEng = {"JANUARY", "FEBRUARY", "MARCH", "APRIL",
+        "MAY", "JUNE", "JULY", "AUGUST",
+        "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
     public final static long SECOND_MILLIS = 1000;
     public final static long MINUTE_MILLIS = SECOND_MILLIS * 60;
     public final static long HOUR_MILLIS = MINUTE_MILLIS * 60;
@@ -100,6 +105,107 @@ public class GeneralDate {
 
         return res;
     }
+
+     public static int dayOfWeek(int day, int month, int year) {
+
+        int res = 0;
+        /*
+            int[] t = { 0, 3, 2, 5, 0, 3, 5, 
+                      1, 4, 6, 2, 4 };
+            
+            year -= ((month < 3) ? 1 : 0);
+
+            res = (year + year / 4 - year / 100 + year / 400
+                             + t[month - 1] + day) % 7;
+        */
+        
+        Calendar cal = Calendar.getInstance();
+        cal.set(year, month , day + 1);
+         System.out.println(cal.getTime());
+        res = cal.get(Calendar.DAY_OF_WEEK)  - 1;
+        
+        return res;
+    }
+
+    // Function that returns the name of the 
+    // month for the given month Number 
+    // January - 0, February - 1 and so on 
+    // language = 1 Spanish  = 2 = English
+    public static String getMonthName(int monthNumber, int language) {
+        String month;
+
+        if (language ==1) {
+            month = nameOfMonthSp[monthNumber];
+        } else {
+            month = nameOfMonthEng[monthNumber];
+        }
+
+        return month;
+    }
+    
+            // Function to return the number of days 
+        // in a month 
+        public static int numberOfDays(int monthNumber, int year)
+        {
+            // January 
+            if (monthNumber == 0)
+                return (31);
+
+            // February 
+            if (monthNumber == 1)
+            {
+                // If the year is leap then Feb 
+                // has 29 days 
+                if (year % 400 == 0
+                    || (year % 4 == 0
+                        && year % 100 != 0))
+                    return (29);
+                else
+                    return (28);
+            }
+
+            // March 
+            if (monthNumber == 2)
+                return (31);
+
+            // April 
+            if (monthNumber == 3)
+                return (30);
+
+            // May 
+            if (monthNumber == 4)
+                return (31);
+
+            // June 
+            if (monthNumber == 5)
+                return (30);
+
+            // July 
+            if (monthNumber == 6)
+                return (31);
+
+            // August 
+            if (monthNumber == 7)
+                return (31);
+
+            // September 
+            if (monthNumber == 8)
+                return (30);
+
+            // October 
+            if (monthNumber == 9)
+                return (31);
+
+            // November 
+            if (monthNumber == 10)
+                return (30);
+
+            // December 
+            if (monthNumber == 11)
+                return (31);
+
+            return -1;
+        }
 
     /**
      *
@@ -181,7 +287,6 @@ public class GeneralDate {
 
         return res;
     }
-    
 
     /**
      * Convert current dateTime to sql.Date
@@ -392,7 +497,6 @@ public class GeneralDate {
         int year, month, day;
         int contExcept = 0;
 
-
         date = pRefDate;
         year = getNumberYear(pRefDate);
         month = getNumberMonth(pRefDate);
@@ -418,8 +522,6 @@ public class GeneralDate {
         }
         return res;
     }
-
-   
 
     public static java.sql.Date addDays(java.sql.Date pDate, int pNumDays, ArithmeticalDaysMethods arithmeticalDaysMethods) throws ParseException {
         java.sql.Date res = null;
@@ -686,12 +788,12 @@ public class GeneralDate {
 
             double res = diffDays(fecUltPago, fecProxPago, ArithmeticalDaysMethods.z30_360EuroArithDays);
             System.out.println("diffDays " + Double.toString(res));
-/*
+            /*
             java.sql.Date fecFinal = addDays365(fecProxPago, -2);
             System.out.println("addDays365: " + fecFinal.toString());
 
-  */          
-            /*
+             */
+ /*
            java.sql.Date fecInic = convertStr2SqlDate("28/02/2013");
             java.sql.Date fecFinal = addDays360(fecInic, 2);
             System.out.println("addDays360: " + fecFinal.toString());
