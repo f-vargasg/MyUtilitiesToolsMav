@@ -2,8 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fvgprinc.tools.common.utilities;
+package com.fvgprinc.tools.utilities;
 
+import com.fvgprinc.tools.common.string.MyCommonString;
+import com.fvgprinc.tools.common.string.MyCommonXML;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -15,8 +17,6 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import com.fvgprinc.tools.common.string.MyCommonString;
-import com.fvgprinc.tools.common.string.MyCommonXML;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

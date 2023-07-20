@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fvgprinc.tools.common.utilities;
+package com.fvgprinc.tools.utilities;
 
 import com.fvgprinc.tools.common.string.MyCommonString;
 import java.text.DateFormat;

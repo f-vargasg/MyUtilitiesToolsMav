@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fvgprinc.tools.common.utilities;
+package com.fvgprinc.tools.utilities;
 
+import com.fvgprinc.tools.common.string.MyCommonString;
 import java.awt.Frame;
 import java.awt.Rectangle;
 import java.io.BufferedReader;
@@ -14,7 +15,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
-import com.fvgprinc.tools.common.string.MyCommonString;
+
 
 /**
  *

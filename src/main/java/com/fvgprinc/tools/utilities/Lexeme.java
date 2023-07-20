@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fvgprinc.tools.common.utilities;
+package com.fvgprinc.tools.utilities;
 
+import com.fvgprinc.tools.common.string.MyCommonString;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,7 +16,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 
-import com.fvgprinc.tools.common.string.MyCommonString;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

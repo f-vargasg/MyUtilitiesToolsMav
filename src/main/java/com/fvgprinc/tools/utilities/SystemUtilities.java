@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fvgprinc.tools.common.utilities;
+package com.fvgprinc.tools.utilities;
 
-import java.io.File;
 import com.fvgprinc.tools.common.string.MyCommonString;
+import java.io.File;
 
 /**
  *

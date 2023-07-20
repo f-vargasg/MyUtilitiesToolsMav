@@ -1,4 +1,4 @@
-package com.fvgprinc.tools.common.utilities;
+package com.fvgprinc.tools.utilities;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
