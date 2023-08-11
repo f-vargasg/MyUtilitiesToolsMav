@@ -5,7 +5,7 @@
  */
 package com.fvgprinc.tools.utilities;
 
-import com.fvgprinc.tools.common.string.MyCommonString;
+import com.fvgprinc.tools.string.MyCommonString;
 import java.io.File;
 
 /**

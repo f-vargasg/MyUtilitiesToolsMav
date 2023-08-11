@@ -4,8 +4,8 @@
  */
 package com.fvgprinc.tools.utilities;
 
-import com.fvgprinc.tools.common.string.MyCommonString;
-import com.fvgprinc.tools.common.string.MyCommonXML;
+import com.fvgprinc.tools.string.MyCommonString;
+import com.fvgprinc.tools.string.MyCommonXML;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;

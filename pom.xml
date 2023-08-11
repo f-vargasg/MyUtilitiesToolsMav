@@ -13,10 +13,9 @@
             <version>1.16.0</version>
         </dependency>
         <dependency>
-            <groupId>com.fvgprinc.tools.common.string</groupId>
+            <groupId>com.fvgprinc.tools.string</groupId>
             <artifactId>MyStringToolsMav</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
         </dependency>
     </dependencies>
         <build>  

@@ -6,6 +6,7 @@
 module com.fvgprinc.tools.utilities {
     exports com.fvgprinc.tools.utilities;
     
+    requires com.fvgprinc.tools.string;
     requires org.apache.commons.codec;
     requires java.sql;
     requires java.desktop;

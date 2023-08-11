@@ -5,7 +5,7 @@
  */
 package com.fvgprinc.tools.utilities;
 
-import com.fvgprinc.tools.common.string.MyCommonString;
+import com.fvgprinc.tools.string.MyCommonString;
 import java.awt.Frame;
 import java.awt.Rectangle;
 import java.io.BufferedReader;
