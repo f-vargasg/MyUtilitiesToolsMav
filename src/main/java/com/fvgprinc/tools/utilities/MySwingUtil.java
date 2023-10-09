@@ -38,7 +38,7 @@ public class MySwingUtil {
          */
 
         for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-            if ("Nimbus".equals(info.getName())) {
+            if (lafName.equals(info.getName())) {
 
                 try {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
