@@ -16,9 +16,15 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class MySwingUtil {
 
+    // Tipos enumerados para los estados 
+    // de mis forms
+    public static enum FrmStates {
+        FRMINSERT, FRMUPDATE, FRMDELELTE
+    }
+
     // Tipos de mensajes para los dialogos
     public static final int TD_INFO = 0;   // informacion
-    public static final int TD_ERROR = 1;  // Error
+    public static final int TD_ERROR = 1;  
 
     // Defaults look and feel 
     public static final String LFMETAL = "Metal";
@@ -52,7 +58,6 @@ public class MySwingUtil {
                     Logger.getLogger(MySwingUtil.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-
             }
         }
     }
@@ -60,12 +65,19 @@ public class MySwingUtil {
     public static void mostrarMensaje(String mensaje, int tipo, String titulo) {
         JOptionPane optionPane = new JOptionPane(mensaje);
 
-        if (tipo == TD_INFO) {
-            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        } else if (tipo == TD_ERROR) {
-            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        switch (tipo) {
+            case TD_INFO:
+                optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case TD_ERROR:
+                optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+                break;
+            default:
+                break;
         }
+
         JDialog dialog = optionPane.createDialog(titulo);
+
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
     }
