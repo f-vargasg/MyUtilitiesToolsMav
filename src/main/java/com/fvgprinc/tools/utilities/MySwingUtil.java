@@ -4,11 +4,16 @@
  */
 package com.fvgprinc.tools.utilities;
 
+import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -24,7 +29,7 @@ public class MySwingUtil {
 
     // Tipos de mensajes para los dialogos
     public static final int TD_INFO = 0;   // informacion
-    public static final int TD_ERROR = 1;  
+    public static final int TD_ERROR = 1;
 
     // Defaults look and feel 
     public static final String LFMETAL = "Metal";
@@ -80,6 +85,35 @@ public class MySwingUtil {
 
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
+    }
+
+    public static void setJTableColumnsWidth(JTable table, int tablePreferredWidth,
+            double... percentages) {
+        double total = 0;
+        for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
+            total += percentages[i];
+        }
+
+        for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
+            TableColumn column = table.getColumnModel().getColumn(i);
+            column.setPreferredWidth((int) (tablePreferredWidth * (percentages[i] / total)));
+        }
+    }
+
+    public static void resizeColumnWidth(JTable table) {
+        final TableColumnModel columnModel = table.getColumnModel();
+        for (int column = 0; column < table.getColumnCount(); column++) {
+            int width = 15; // Min width
+            for (int row = 0; row < table.getRowCount(); row++) {
+                TableCellRenderer renderer = table.getCellRenderer(row, column);
+                Component comp = table.prepareRenderer(renderer, row, column);
+                width = Math.max(comp.getPreferredSize().width + 1, width);
+            }
+            if (width > 300) {
+                width = 300;
+            }
+            columnModel.getColumn(column).setPreferredWidth(width);
+        }
     }
 
 }
