@@ -37,7 +37,6 @@ public class MyDataTableModel<T> extends AbstractTableModel {
     @Override
     public int getRowCount() {
         return this.myData.size();
-        // return this.cache.size();
     }
 
     @Override

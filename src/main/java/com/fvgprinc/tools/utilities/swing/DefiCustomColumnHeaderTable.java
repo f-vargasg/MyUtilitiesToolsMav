@@ -23,6 +23,7 @@ public class DefiCustomColumnHeaderTable {
     }
     
     // Index definition 
+    // Estructura de la hilera de definición
     static final int IDCOLUMN = 0;
     static final int TYPECOLUMN = 1;
     static final int LABELCOLUMN = 2;
