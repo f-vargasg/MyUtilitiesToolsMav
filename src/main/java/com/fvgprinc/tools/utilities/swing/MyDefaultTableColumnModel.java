@@ -11,7 +11,7 @@ import javax.swing.table.TableColumn;
 /**
  *
  * @author fvargas
- * @deprecated  No USAR POR EL MOMENTO
+ * @deprecated No USAR POR EL MOMENTO
  */
 public class MyDefaultTableColumnModel extends DefaultTableColumnModel {
 
@@ -111,32 +111,23 @@ public class MyDefaultTableColumnModel extends DefaultTableColumnModel {
         DefiCustomColumnHeaderTable.DataTypes res = null;
         if (pstr.compareTo("N") == 0) {
             res = DefiCustomColumnHeaderTable.DataTypes.LONGTYPE;
-        }
-        if (pstr.compareTo("I") == 0) {
+        } else if (pstr.compareTo("I") == 0) {
             res = DefiCustomColumnHeaderTable.DataTypes.INTTYPE;
-        }
-        if (pstr.compareTo("L") == 0) {
+        } else if (pstr.compareTo("L") == 0) {
             res = DefiCustomColumnHeaderTable.DataTypes.LONGTYPE;
-        }
-        if (pstr.compareTo("D") == 0) {
+        } else if (pstr.compareTo("D") == 0) {
             res = DefiCustomColumnHeaderTable.DataTypes.DOUBLETYPE;
-        }
-        if (pstr.compareTo("F") == 0) {
+        } else if (pstr.compareTo("F") == 0) {
             res = DefiCustomColumnHeaderTable.DataTypes.NUMBERFIXEDTYPE;
-        }
-        if (pstr.compareTo("S") == 0) {
+        } else if (pstr.compareTo("S") == 0) {
             res = DefiCustomColumnHeaderTable.DataTypes.STRINGTYPE;
-        }
-        if (pstr.compareTo("D") == 0) {
+        } else if (pstr.compareTo("DSQ") == 0) {
             res = DefiCustomColumnHeaderTable.DataTypes.SQLDATETYPE;
-        }
-        if (pstr.compareTo("DC") == 0) {
+        } else if (pstr.compareTo("DC") == 0) {
             res = DefiCustomColumnHeaderTable.DataTypes.CUSTOMSQLDATETYPE;
-        }
-        if (pstr.compareTo("DU") == 0) {
+        } else if (pstr.compareTo("DU") == 0) {
             res = DefiCustomColumnHeaderTable.DataTypes.UTILDATETYPE;
-        }
-        if (pstr.compareTo("DUC") == 0) {
+        } else if (pstr.compareTo("DUC") == 0) {
             res = DefiCustomColumnHeaderTable.DataTypes.CUSTOMUTILDATETYPE;
         }
         return res;
@@ -195,6 +186,5 @@ public class MyDefaultTableColumnModel extends DefaultTableColumnModel {
 
         super.addColumn(aColumn); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
+
 }

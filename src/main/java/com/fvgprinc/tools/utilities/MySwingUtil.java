@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.fvgprinc.tools.utilities;
 
 import java.awt.Component;
@@ -24,12 +20,13 @@ public class MySwingUtil {
     // Tipos enumerados para los estados 
     // de mis forms
     public static enum FrmStates {
-        FRMINSERT, FRMUPDATE, FRMDELELTE
+        FRMINSERT, FRMUPDATE, FRMDELELTE, FRMBROWSE
     }
 
     // Tipos de mensajes para los dialogos
     public static final int TD_INFO = 0;   // informacion
     public static final int TD_ERROR = 1;
+    public static final int TD_WARNING = 2;
 
     // Defaults look and feel 
     public static final String LFMETAL = "Metal";
@@ -47,10 +44,10 @@ public class MySwingUtil {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-
+        
         for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
             if (lafName.equals(info.getName())) {
-
+                
                 try {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                 } catch (ClassNotFoundException ex) {
@@ -62,14 +59,14 @@ public class MySwingUtil {
                 } catch (UnsupportedLookAndFeelException ex) {
                     Logger.getLogger(MySwingUtil.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                
             }
         }
     }
-
+    
     public static void mostrarMensaje(String mensaje, int tipo, String titulo) {
         JOptionPane optionPane = new JOptionPane(mensaje);
-
+        
         switch (tipo) {
             case TD_INFO:
                 optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
@@ -77,29 +74,32 @@ public class MySwingUtil {
             case TD_ERROR:
                 optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
                 break;
+            case TD_WARNING:
+                optionPane.setMessage(JOptionPane.WARNING_MESSAGE);
+                break;
             default:
                 break;
         }
-
+        
         JDialog dialog = optionPane.createDialog(titulo);
-
+        
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
     }
-
+    
     public static void setJTableColumnsWidth(JTable table, int tablePreferredWidth,
             double... percentages) {
         double total = 0;
         for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
             total += percentages[i];
         }
-
+        
         for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
             TableColumn column = table.getColumnModel().getColumn(i);
             column.setPreferredWidth((int) (tablePreferredWidth * (percentages[i] / total)));
         }
     }
-
+    
     public static void resizeColumnWidth(JTable table) {
         final TableColumnModel columnModel = table.getColumnModel();
         for (int column = 0; column < table.getColumnCount(); column++) {
@@ -115,5 +115,5 @@ public class MySwingUtil {
             columnModel.getColumn(column).setPreferredWidth(width);
         }
     }
-
+    
 }
