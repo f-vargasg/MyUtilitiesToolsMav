@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 /**
@@ -58,12 +59,26 @@ public class TableModelViewManager<T> {
         // Ahora para los campos fixed y date se hará un formato
         TableColumnModel columnModel = this.jtbl.getColumnModel();
         for (int i = 0; i < columnModel.getColumnCount(); i++) {
-            DefiCustomColumnHeaderTable.DataTypes colType = tcd.getDefColumnsTable()[i].getType();
+            TableColumn tcm = this.jtbl.getColumnModel().getColumn(i);
+            DefiCustomColumnHeaderTable dccht = tcd.getDefColumnsTable()[i];
+            // Pone el Render (formato) de la columna
+            DefiCustomColumnHeaderTable.DataTypes colType = dccht.getType();
             if (colType == DefiCustomColumnHeaderTable.DataTypes.SQLDATETYPE
                     || colType == DefiCustomColumnHeaderTable.DataTypes.UTILDATETYPE) {
                 int colActual = i;
-                this.jtbl.getColumnModel().getColumn(i).setCellRenderer(dateRenderer);
+                // this.jtbl.getColumnModel().getColumn(i).setCellRenderer(dateRenderer);
+                tcm.setCellRenderer(dateRenderer);
             }
+            // Pone el tamaño de la colmna
+            if (dccht.isVisible()) {
+                tcm.setPreferredWidth(tcd.getDefColumnsTable()[i].getLength());
+            } else {
+                tcm.setMaxWidth(0);
+                tcm.setMinWidth(0);
+                tcm.setPreferredWidth(0);
+                tcm.setResizable(false);
+            }
+
         }
     }
 

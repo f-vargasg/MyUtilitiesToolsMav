@@ -42,6 +42,7 @@ public class TableColumnDef {
                     case DefiCustomColumnHeaderTable.SCALECOLUMN -> colDefinition.setScale(Integer.parseInt(strFld));
                     case DefiCustomColumnHeaderTable.OBJNAMECOLUMN -> colDefinition.setObjectName(strFld);
                     case DefiCustomColumnHeaderTable.EDITABLENAMECOLUMN -> colDefinition.setEditable((strFld.compareToIgnoreCase("S") == 0));
+                    case DefiCustomColumnHeaderTable.VISIBLECOLUMN -> colDefinition.setVisible(strFld.compareToIgnoreCase("S") ==0);
                 }
                 j++;
                 this.defColumnsTable[i] = colDefinition;

@@ -33,6 +33,7 @@ public class DefiCustomColumnHeaderTable {
     static final int LENGTHCOLUMN = 6;
     static final int OBJNAMECOLUMN = 7;
     static final int EDITABLENAMECOLUMN =8; // editable indicator.
+    static final int VISIBLECOLUMN =9; // editable indicator.
     
     // strucutre definition
     private String idColumn;
@@ -44,6 +45,7 @@ public class DefiCustomColumnHeaderTable {
     private int length; // por ejemplo a varchar2(xxxx)
     private String objectName; // if has a object name associated
     private boolean editable; // is column editable
+    private boolean visible; // is column visible
 
     public DefiCustomColumnHeaderTable() {
         this.idColumn = MyCommonString.EMPTYSTR;
@@ -55,10 +57,11 @@ public class DefiCustomColumnHeaderTable {
         this.length = 0;
         this.objectName = MyCommonString.EMPTYSTR;
         this.editable = false;
+        this.visible = true;
     }
 
     public DefiCustomColumnHeaderTable(String idColumn, DataTypes type, String labelColumn, int precision, 
-                                      int scale, int length, String objectName, boolean editable) {
+                                      int scale, int length, String objectName, boolean editable, boolean visible) {
         this.idColumn = idColumn;
         this.type = type;
         this.labelColumn = labelColumn;
@@ -67,6 +70,7 @@ public class DefiCustomColumnHeaderTable {
         this.length = length;
         this.objectName = objectName;
         this.editable = editable;
+        this.visible = visible;
     }
 
     public String getIdColumn() {
@@ -140,6 +144,16 @@ public class DefiCustomColumnHeaderTable {
     public void setEditable(boolean editable) {
         this.editable = editable;
     }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+    
+    
     
     
 }
