@@ -74,8 +74,7 @@ public class TableColumnDef {
      * I = Integer 
      * L = Long
      * D = Double 
-     * F = Number Fixed(Number Fixed.-Precision = cant enteros, scale
-     * = cant decimales)) 
+     * F = Number Fixed(Number Fixed.-Precision = cant enteros, scale = cant decimales)) 
      * S = String 
      * D = java.sql.Date 
      * DC = java.sql.Date Custom
