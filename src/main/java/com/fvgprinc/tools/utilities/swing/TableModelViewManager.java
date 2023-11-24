@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -28,11 +29,11 @@ public class TableModelViewManager<T> {
     private TableColumnDef tcd;
     private JTable jtbl;
     //String colDef;
-    private TableCellRenderer dateRenderer;
+    private TableCellRenderer myCellRendered;
 
     public TableModelViewManager(JTable jtbl, String colDef) {
         tcd = new TableColumnDef(colDef);
-        this.dateRenderer = new DefaultTableCellRenderer() {
+        this.myCellRendered = new DefaultTableCellRenderer() {
             SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
 
             @Override
@@ -50,15 +51,20 @@ public class TableModelViewManager<T> {
                 DefiCustomColumnHeaderTable dccht = tcd.getDefColumnsTable()[column];
                 // Pone el Render (formato) de la columna
                 DefiCustomColumnHeaderTable.DataTypes colType = dccht.getType();
-                if (colType == DefiCustomColumnHeaderTable.DataTypes.SQLDATETYPE
-                        || colType == DefiCustomColumnHeaderTable.DataTypes.UTILDATETYPE) {
-                    value = f.format(value);
-                } else if  (colType == DefiCustomColumnHeaderTable.DataTypes.NUMBERFIXEDTYPE) {
-                    Locale locale = new Locale("en", "US");
-                    // DecimalFormat formato = new DecimalFormat("#,###,##0.00");
-                    DecimalFormat formato = (DecimalFormat)NumberFormat.getNumberInstance (locale);
-                    formato.applyPattern("#,###,##0.00");
-                    value = formato.format(value);
+                if (null
+                        == colType) {
+                    setHorizontalAlignment( SwingConstants.LEFT);
+                } else switch (colType) {
+                    case SQLDATETYPE, UTILDATETYPE -> value = f.format(value);
+                    case NUMBERFIXEDTYPE -> {
+                        setHorizontalAlignment( SwingConstants.RIGHT);
+                        Locale locale = new Locale("en", "US");
+                        // DecimalFormat formato = new DecimalFormat("#,###,##0.00");
+                        DecimalFormat formato = (DecimalFormat)NumberFormat.getNumberInstance (locale);
+                        formato.applyPattern("#,###,##0.00");
+                        value = formato.format(value);
+                    }
+                    default -> setHorizontalAlignment( SwingConstants.LEFT);
                 }
 
                 return super.getTableCellRendererComponent(table, value, isSelected, hasFocus,
@@ -95,7 +101,7 @@ public class TableModelViewManager<T> {
                 // this.jtbl.getColumnModel().getColumn(i).setCellRenderer(dateRenderer);
                 tcm.setCellRenderer(dateRenderer);
             }*/
-            tcm.setCellRenderer(dateRenderer);
+            tcm.setCellRenderer(myCellRendered);
             // Pone el tamaño de la colmna
             if (dccht.isVisible()) {
                 tcm.setPreferredWidth(tcd.getDefColumnsTable()[i].getLength());
@@ -110,7 +116,7 @@ public class TableModelViewManager<T> {
     }
 
     public TableModelViewManager(JTable pJtbl) {
-        this.dateRenderer = new DefaultTableCellRenderer() {
+        this.myCellRendered = new DefaultTableCellRenderer() {
             SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
 
             @Override
