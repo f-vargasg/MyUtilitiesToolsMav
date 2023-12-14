@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.fvgprinc.tools.utilities.swing;
 
 import com.fvgprinc.tools.utilities.MySwingUtil;
@@ -13,7 +10,8 @@ import javax.swing.table.DefaultTableModel;
  * @author garfi
  */
 public class JTableUtil {
-    public static double sumarColumna(String nombreColumna, JTable table) {
+
+        public static double sumarColumna(String nombreColumna, JTable table) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         Double res = 0.00;
 
