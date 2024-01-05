@@ -137,8 +137,7 @@ public class FileUtilities {
             File parentPath = new File(fileVerificator.getParent());
 
             if (!parentPath.exists()) {
-                System.out
-                        .println("La ruta dada no existe, creando estructura para "
+                System.out.println("La ruta dada no existe, creando estructura para "
                                 + fileVerificator.getParent());
                 retorno = parentPath.mkdirs();
             }
