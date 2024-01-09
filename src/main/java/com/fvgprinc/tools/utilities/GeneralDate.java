@@ -273,6 +273,25 @@ public class GeneralDate {
 
         return res;
     }
+    
+    
+    /**
+     * 
+     * @param pDate  Date to convert
+     * @param patternDate  the string parameter for example 
+     *                                     dd/MM/yyyy    return 01/12/2023
+     *                                     dd-MM-yyyy    return 01-12-2023 
+     *                                      
+     * @return string date with format given by patternDate
+     */
+    public static String convertJavaUtilDate2Str(java.util.Date pDate, String patternDate) {
+        DateFormat df = new SimpleDateFormat(patternDate);
+        String res;
+
+        res = df.format(pDate);
+
+        return res;
+    }
 
     public static java.util.Date convertStr2JavaUtilDate(String pStrDate) throws ParseException {
         java.util.Date res;
