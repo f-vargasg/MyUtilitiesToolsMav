@@ -53,6 +53,7 @@ public class GeneralDate {
     public final static long DAY_MILLIS = HOUR_MILLIS * 24;
     public final static long YEAR_MILLIS = DAY_MILLIS * 365;
     public static final String DATEFORMATCRC = "dd/MM/yyyy";    // formato estandar
+    public static final String DATEFORMATSTD = "yyyy-MM-dd";
 
     /**
      *
@@ -338,6 +339,18 @@ public class GeneralDate {
 
         if (pDate != null) {
             SimpleDateFormat formatter = new SimpleDateFormat(DATEFORMATCRC);//Date format
+            java.util.Date utilDate = new java.util.Date(pDate.getTime());// your Sql date value
+            res = formatter.format(utilDate);
+        }
+
+        return res;
+    }
+    
+    public static String convertSqlDate2String(java.sql.Date pDate, String pattern) {
+        String res = MyCommonString.EMPTYSTR;
+
+        if (pDate != null) {
+            SimpleDateFormat formatter = new SimpleDateFormat(pattern);//Date format
             java.util.Date utilDate = new java.util.Date(pDate.getTime());// your Sql date value
             res = formatter.format(utilDate);
         }
