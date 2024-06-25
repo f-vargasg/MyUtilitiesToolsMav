@@ -107,7 +107,7 @@ public class GeneralDate {
         return res;
     }
 
-     public static int dayOfWeek(int day, int month, int year) {
+    public static int dayOfWeek(int day, int month, int year) {
 
         int res = 0;
         /*
@@ -118,13 +118,13 @@ public class GeneralDate {
 
             res = (year + year / 4 - year / 100 + year / 400
                              + t[month - 1] + day) % 7;
-        */
-        
+         */
+
         Calendar cal = Calendar.getInstance();
-        cal.set(year, month , day + 1);
-         System.out.println(cal.getTime());
-        res = cal.get(Calendar.DAY_OF_WEEK)  - 1;
-        
+        cal.set(year, month, day + 1);
+        System.out.println(cal.getTime());
+        res = cal.get(Calendar.DAY_OF_WEEK) - 1;
+
         return res;
     }
 
@@ -135,7 +135,7 @@ public class GeneralDate {
     public static String getMonthName(int monthNumber, int language) {
         String month;
 
-        if (language ==1) {
+        if (language == 1) {
             month = nameOfMonthSp[monthNumber];
         } else {
             month = nameOfMonthEng[monthNumber];
@@ -143,70 +143,80 @@ public class GeneralDate {
 
         return month;
     }
-    
-            // Function to return the number of days 
-        // in a month 
-        public static int numberOfDays(int monthNumber, int year)
-        {
-            // January 
-            if (monthNumber == 0)
-                return (31);
 
-            // February 
-            if (monthNumber == 1)
-            {
-                // If the year is leap then Feb 
-                // has 29 days 
-                if (year % 400 == 0
-                    || (year % 4 == 0
-                        && year % 100 != 0))
-                    return (29);
-                else
-                    return (28);
-            }
-
-            // March 
-            if (monthNumber == 2)
-                return (31);
-
-            // April 
-            if (monthNumber == 3)
-                return (30);
-
-            // May 
-            if (monthNumber == 4)
-                return (31);
-
-            // June 
-            if (monthNumber == 5)
-                return (30);
-
-            // July 
-            if (monthNumber == 6)
-                return (31);
-
-            // August 
-            if (monthNumber == 7)
-                return (31);
-
-            // September 
-            if (monthNumber == 8)
-                return (30);
-
-            // October 
-            if (monthNumber == 9)
-                return (31);
-
-            // November 
-            if (monthNumber == 10)
-                return (30);
-
-            // December 
-            if (monthNumber == 11)
-                return (31);
-
-            return -1;
+    // Function to return the number of days 
+    // in a month 
+    public static int numberOfDays(int monthNumber, int year) {
+        // January 
+        if (monthNumber == 0) {
+            return (31);
         }
+
+        // February 
+        if (monthNumber == 1) {
+            // If the year is leap then Feb 
+            // has 29 days 
+            if (year % 400 == 0
+                    || (year % 4 == 0
+                    && year % 100 != 0)) {
+                return (29);
+            } else {
+                return (28);
+            }
+        }
+
+        // March 
+        if (monthNumber == 2) {
+            return (31);
+        }
+
+        // April 
+        if (monthNumber == 3) {
+            return (30);
+        }
+
+        // May 
+        if (monthNumber == 4) {
+            return (31);
+        }
+
+        // June 
+        if (monthNumber == 5) {
+            return (30);
+        }
+
+        // July 
+        if (monthNumber == 6) {
+            return (31);
+        }
+
+        // August 
+        if (monthNumber == 7) {
+            return (31);
+        }
+
+        // September 
+        if (monthNumber == 8) {
+            return (30);
+        }
+
+        // October 
+        if (monthNumber == 9) {
+            return (31);
+        }
+
+        // November 
+        if (monthNumber == 10) {
+            return (30);
+        }
+
+        // December 
+        if (monthNumber == 11) {
+            return (31);
+        }
+
+        return -1;
+    }
 
     /**
      *
@@ -274,15 +284,13 @@ public class GeneralDate {
 
         return res;
     }
-    
-    
+
     /**
-     * 
-     * @param pDate  Date to convert
-     * @param patternDate  the string parameter for example 
-     *                                     dd/MM/yyyy    return 01/12/2023
-     *                                     dd-MM-yyyy    return 01-12-2023 
-     *                                      
+     *
+     * @param pDate Date to convert
+     * @param patternDate the string parameter for example dd/MM/yyyy return
+     * 01/12/2023 dd-MM-yyyy return 01-12-2023
+     *
      * @return string date with format given by patternDate
      */
     public static String convertJavaUtilDate2Str(java.util.Date pDate, String patternDate) {
@@ -291,6 +299,14 @@ public class GeneralDate {
 
         res = df.format(pDate);
 
+        return res;
+    }
+
+    public static java.util.Date convertStr2JavaUtilDate(String pStrDate, String pPatternDate) throws ParseException {
+        java.util.Date res;
+        SimpleDateFormat df = new SimpleDateFormat(pPatternDate);
+
+        res = df.parse(pStrDate);
         return res;
     }
 
@@ -358,6 +374,7 @@ public class GeneralDate {
         return res;
     }
 
+
     /**
      * Returns the java.sql.date convertion from pStrDate
      *
@@ -367,6 +384,14 @@ public class GeneralDate {
      */
     public static java.sql.Date convertStr2SqlDate(String pStrDate) throws ParseException {
         java.util.Date dateUtl = convertStr2JavaUtilDate(pStrDate);
+        java.sql.Date res = convertJavaUtilDate2SqlDate(dateUtl);
+
+        return res;
+
+    }
+
+    public static java.sql.Date convertStr2SqlDate(String pStrDate, String pPatternDate) throws ParseException {
+        java.util.Date dateUtl = convertStr2JavaUtilDate(pStrDate, pPatternDate);
         java.sql.Date res = convertJavaUtilDate2SqlDate(dateUtl);
 
         return res;
