@@ -1,5 +1,6 @@
 package com.fvgprinc.tools.utilities;
 
+import com.fvgprinc.tools.string.MyCommonString;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -10,6 +11,21 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
 
+/*
+        Convensiones:
+            pathFName.- Es un nombre de archivo con el path completo (fulll path)
+            Ejemplos:
+
+            Linux
+            /home/users/fvargas/Final.txt
+
+            Windows
+            C:\Users\garfi\OneDrive\Documentos\Final.txt
+
+
+            fName.- es unicamente el nombre de archivo (filename)
+            Final.txt 
+ */
 public class FileUtilities {
 
     private String errorMsg;
@@ -138,7 +154,7 @@ public class FileUtilities {
 
             if (!parentPath.exists()) {
                 System.out.println("La ruta dada no existe, creando estructura para "
-                                + fileVerificator.getParent());
+                        + fileVerificator.getParent());
                 retorno = parentPath.mkdirs();
             }
         } catch (Exception ex) {
@@ -161,4 +177,15 @@ public class FileUtilities {
         return file2.getPath();
     }
 
+    public static String fnameWoExtension(String fname) {
+        int dotIndex = fname.lastIndexOf(".");
+        String res = (dotIndex == -1) ? fname : fname.substring(0, dotIndex);
+        return res;
+    }
+
+    public static String fileExtension(String fname) {
+        int dotIndex = fname.lastIndexOf(".");
+        String res = (dotIndex == -1) ? MyCommonString.EMPTYSTR : fname.substring(dotIndex + 1);
+        return res;
+    }
 }
