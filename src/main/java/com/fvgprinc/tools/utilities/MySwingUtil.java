@@ -50,6 +50,7 @@ public class MySwingUtil {
                 
                 try {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(MySwingUtil.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InstantiationException ex) {

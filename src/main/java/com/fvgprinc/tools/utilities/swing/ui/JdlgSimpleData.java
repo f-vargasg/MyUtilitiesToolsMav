@@ -1,8 +1,11 @@
 package com.fvgprinc.tools.utilities.swing.ui;
 
 import com.fvgprinc.tools.utilities.swing.interfaces.DialogCapable;
+//<<<<<<< HEAD
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+//=======
+//>>>>>>> origin/master
 import javax.swing.JOptionPane;
 
 /**
@@ -30,6 +33,7 @@ public class JdlgSimpleData extends javax.swing.JDialog implements DialogCapable
         initMyComponents();
         this.setLocationRelativeTo(parent);
         this.setResizable(false);
+//<<<<<<< HEAD
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -41,6 +45,8 @@ public class JdlgSimpleData extends javax.swing.JDialog implements DialogCapable
     
     private void onCancel() {
         dispose();
+//=======
+//>>>>>>> origin/master
     }
 
     private void initMyComponents() {

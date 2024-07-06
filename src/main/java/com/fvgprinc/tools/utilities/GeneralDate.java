@@ -52,8 +52,15 @@ public class GeneralDate {
     public final static long HOUR_MILLIS = MINUTE_MILLIS * 60;
     public final static long DAY_MILLIS = HOUR_MILLIS * 24;
     public final static long YEAR_MILLIS = DAY_MILLIS * 365;
+    /*
+<<<<<<< HEAD
     public static final String DATEFORMATCRC = "dd/MM/yyyy";    // formato estandar
     public static final String DATEFORMATSTD = "yyyy-MM-dd";
+=======
+    */
+    public static final String DATEFORMATCRC = "dd/MM/yyyy";    // formato estandar Costa Rica
+    public static final String DATEFORMATSTD = "yyyy-MM-dd";    // formato estandar Costa Rica
+//>>>>>>> origin/master
 
     /**
      *
@@ -374,7 +381,19 @@ public class GeneralDate {
         return res;
     }
 
+/*
+    public static String convertSqlDate2String(java.sql.Date pDate, String pDateFormat) {
+        String res = MyCommonString.EMPTYSTR;
 
+        if (pDate != null) {
+            SimpleDateFormat formatter = new SimpleDateFormat(pDateFormat);//Date format
+            java.util.Date utilDate = new java.util.Date(pDate.getTime());// your Sql date value
+            res = formatter.format(utilDate);
+        }
+
+        return res;
+    }
+*/
     /**
      * Returns the java.sql.date convertion from pStrDate
      *
