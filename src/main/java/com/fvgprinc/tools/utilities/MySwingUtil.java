@@ -3,7 +3,10 @@ package com.fvgprinc.tools.utilities;
 import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -44,10 +47,10 @@ public class MySwingUtil {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        
+
         for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
             if (lafName.equals(info.getName())) {
-                
+
                 try {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
@@ -60,14 +63,14 @@ public class MySwingUtil {
                 } catch (UnsupportedLookAndFeelException ex) {
                     Logger.getLogger(MySwingUtil.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
             }
         }
     }
-    
+
     public static void mostrarMensaje(String mensaje, int tipo, String titulo) {
         JOptionPane optionPane = new JOptionPane(mensaje);
-        
+
         switch (tipo) {
             case TD_INFO:
                 optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
@@ -81,26 +84,26 @@ public class MySwingUtil {
             default:
                 break;
         }
-        
+
         JDialog dialog = optionPane.createDialog(titulo);
-        
+
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
     }
-    
+
     public static void setJTableColumnsWidth(JTable table, int tablePreferredWidth,
             double... percentages) {
         double total = 0;
         for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
             total += percentages[i];
         }
-        
+
         for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
             TableColumn column = table.getColumnModel().getColumn(i);
             column.setPreferredWidth((int) (tablePreferredWidth * (percentages[i] / total)));
         }
     }
-    
+
     public static void resizeColumnWidth(JTable table) {
         final TableColumnModel columnModel = table.getColumnModel();
         for (int column = 0; column < table.getColumnCount(); column++) {
@@ -115,6 +118,30 @@ public class MySwingUtil {
             }
             columnModel.getColumn(column).setPreferredWidth(width);
         }
+    }
+
+    public static void showJFrame(JFrame jfrm) {
+        jfrm.setLocationRelativeTo(null);
+        jfrm.setVisible(true);
+    }
+
+    public static void showJFrame(JFrame jfrm, String title) {
+        jfrm.setTitle(title);
+        jfrm.setLocationRelativeTo(null);
+        jfrm.setVisible(true);
+    }
+
+     public static <T> int findItemIndex(JComboBox jcb, T obj1) {
+        DefaultComboBoxModel<T> dcbm = (DefaultComboBoxModel<T>) jcb.getModel();
+        for (int i = 0; i < dcbm.getSize(); i++) {
+//             if (model.getElementAt(i).equals(item)) {
+            T obj2 = dcbm.getElementAt(i);
+            if (obj2.equals(obj1)) {
+            } else {
+                return i;  // Retorna el índice del ítem si lo encuentra
+            }
+        }
+        return -1; // Retorna -1 si no se encuentra el ítem
     }
     
 }

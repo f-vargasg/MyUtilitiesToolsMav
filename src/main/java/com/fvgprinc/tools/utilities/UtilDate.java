@@ -1,5 +1,5 @@
 
-package com.fvgprinc.tools.utilities.swing;
+package com.fvgprinc.tools.utilities;
 
 import java.util.Date;
 

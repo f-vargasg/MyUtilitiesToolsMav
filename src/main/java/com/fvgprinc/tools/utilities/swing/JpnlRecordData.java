@@ -5,7 +5,6 @@
 package com.fvgprinc.tools.utilities.swing;
 
 import com.fvgprinc.tools.string.MyCommonString;
-import javax.swing.JLabel;
 
 /**
  *
