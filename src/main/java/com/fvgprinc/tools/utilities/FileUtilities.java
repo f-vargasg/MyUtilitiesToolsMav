@@ -1,6 +1,8 @@
 package com.fvgprinc.tools.utilities;
 
 import com.fvgprinc.tools.string.MyCommonString;
+import java.awt.Component;
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -9,7 +11,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
         Convensiones:
@@ -188,4 +194,33 @@ public class FileUtilities {
         String res = (dotIndex == -1) ? MyCommonString.EMPTYSTR : fname.substring(dotIndex + 1);
         return res;
     }
+
+    public static String getPathFromPathFname(String pathFname) {
+        String res;
+        int ultimoIndiceSeparador = pathFname.lastIndexOf(File.separator);
+        res = pathFname.substring(0, ultimoIndiceSeparador);
+        return res;
+    }
+
+    public static int showMySaveDialog(Component parent, JFileChooser fileChooser, String currentPath,
+            FileNameExtensionFilter extensionFilter, String title) {
+        int res;
+        File curPath = new File(currentPath);
+        fileChooser.setCurrentDirectory(curPath);
+        fileChooser.setFileFilter(extensionFilter);
+        fileChooser.setDialogTitle(title);
+        res = fileChooser.showSaveDialog(parent);
+        return res;
+    }
+
+    public static void showDestFileFolder(String message, File fileToSave) throws IOException {
+        // Preguntar al usuario si desea abrir la carpeta
+        int opcion = JOptionPane.showConfirmDialog(null, message, "Abrir carpeta",
+                JOptionPane.YES_NO_OPTION);
+        if (opcion == JOptionPane.YES_OPTION) {
+            File carpeta = fileToSave.getParentFile();
+            Desktop.getDesktop().open(carpeta);
+        }
+    }
+
 }

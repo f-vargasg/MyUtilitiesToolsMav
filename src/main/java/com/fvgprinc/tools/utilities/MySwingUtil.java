@@ -1,6 +1,10 @@
 package com.fvgprinc.tools.utilities;
 
+import com.fvgprinc.tools.string.MyCommonString;
 import java.awt.Component;
+import java.awt.Container;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -8,7 +12,10 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -131,7 +138,7 @@ public class MySwingUtil {
         jfrm.setVisible(true);
     }
 
-     public static <T> int findItemIndex(JComboBox jcb, T obj1) {
+    public static <T> int findItemIndex(JComboBox jcb, T obj1) {
         DefaultComboBoxModel<T> dcbm = (DefaultComboBoxModel<T>) jcb.getModel();
         for (int i = 0; i < dcbm.getSize(); i++) {
 //             if (model.getElementAt(i).equals(item)) {
@@ -143,5 +150,60 @@ public class MySwingUtil {
         }
         return -1; // Retorna -1 si no se encuentra el ítem
     }
-    
+
+    /**
+     *
+     * @param container Define el componente a deshabilitar
+     * @param activar Indica si se activa (true) o si se desactiva (false)
+     * @param nameExceptions es una lista de excepciones, es decir la que está
+     * en esta lista no se deshabilita. Recordar Poner el atributo Name en el
+     * componente para que esta rutina funcione bien
+     */
+    public static void activarPanel(Container container, boolean activar,
+            ArrayList<String> nameExceptions) {
+        String name = MyCommonString.EMPTYSTR;
+        boolean isException = false;
+        if (container.getName() != null) {
+            name = container.getName();
+            isException = nameExceptions.contains(name);
+        }
+
+        container.setEnabled(activar && !isException);
+
+        for (Component component : container.getComponents()) {
+            if (component instanceof Container) {
+                activarPanel((Container) component, activar, nameExceptions);
+            }
+            if (component.getName() != null) {
+                name = component.getName();
+                isException = nameExceptions.contains(name);
+            }
+            component.setEnabled(activar && !isException);
+
+        }
+    }
+
+    /**
+     * Dado el nombre de un contenedor (Panel), toma todos los objetos
+     * inputeables y los inicializa en vacio
+     *
+     * @param container
+     */
+    public static void cleanPanelFlds(Container container) {
+        for (Component componente : container.getComponents()) {
+            if (componente instanceof JTextField) {
+                JTextField textField = (JTextField) componente;
+                textField.setText(MyCommonString.EMPTYSTR);
+            } else if (componente instanceof JTextArea) {
+                JTextArea textArea = (JTextArea) componente;
+                textArea.setText(MyCommonString.EMPTYSTR);
+            } else if (componente instanceof JSpinner) {
+                JSpinner spinner = (JSpinner) componente;
+                spinner.setValue(new Date());
+            } else if (componente instanceof Container) {   // se llama recursivamente
+                cleanPanelFlds((Container) componente);
+            }
+        }
+    }
+
 }
