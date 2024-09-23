@@ -123,10 +123,10 @@ public class MyDataTableModel<T> extends AbstractTableModel {
 
     public void addValue(T pValue) {
         boolean res;
-//    public void addValue(Object pValue) {
+        int rowIndex = this.getRowCount();
         res = this.myData.add(pValue);
-        //fireTableDataChanged();
-        fireTableChanged(null);
+//        fireTableChanged(null);
+        fireTableRowsInserted(rowIndex, rowIndex);
     }
 
     /**

@@ -133,7 +133,8 @@ public class MySwingUtil {
     }
 
     public static void showJFrame(JFrame jfrm, String title) {
-        jfrm.setTitle(title);
+        // jfrm.setTitle(title);
+        jfrm.setTitle(title + " (" + jfrm.getName() + ")" );
         jfrm.setLocationRelativeTo(null);
         jfrm.setVisible(true);
     }
