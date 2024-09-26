@@ -144,7 +144,7 @@ public class MySwingUtil {
         for (int i = 0; i < dcbm.getSize(); i++) {
 //             if (model.getElementAt(i).equals(item)) {
             T obj2 = dcbm.getElementAt(i);
-            if (obj2.equals(obj1)) {
+            if (!obj2.equals(obj1)) {
             } else {
                 return i;  // Retorna el índice del ítem si lo encuentra
             }
