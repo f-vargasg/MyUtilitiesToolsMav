@@ -20,6 +20,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -111,6 +112,11 @@ public class MySwingUtil {
         }
     }
 
+    /**
+     * Retamaña las columnas de un Jtable
+     *
+     * @param table
+     */
     public static void resizeColumnWidth(JTable table) {
         final TableColumnModel columnModel = table.getColumnModel();
         for (int column = 0; column < table.getColumnCount(); column++) {
@@ -127,18 +133,41 @@ public class MySwingUtil {
         }
     }
 
+    /**
+     * Muestra un JFrame sin necesidad de tanto protocolo.
+     *
+     * @param jfrm
+     */
     public static void showJFrame(JFrame jfrm) {
         jfrm.setLocationRelativeTo(null);
         jfrm.setVisible(true);
     }
 
+    /**
+     * Muestra un JFrame sin necesidad tanto protocolo, Se puede puede poner un
+     * titulo (title) al Jframe
+     *
+     * @param jfrm
+     * @param title
+     */
     public static void showJFrame(JFrame jfrm, String title) {
         // jfrm.setTitle(title);
-        jfrm.setTitle(title + " (" + jfrm.getName() + ")" );
+        jfrm.setTitle(title + " (" + jfrm.getName() + ")");
         jfrm.setLocationRelativeTo(null);
         jfrm.setVisible(true);
     }
 
+    /**
+     * }
+     * Encuentra, en un JCombo un objetio de tipo T, y retorna el indice donde
+     * se encuentra el objeto
+     *
+     * @param <T> El tipo del objeto que tiene el modelo asociado con el combo
+     * @param jcb El combo asociado
+     * @param obj1 El objeto a buscar
+     * @return El indice de la primer ocurrencia de obj1 en el modelo asociado
+     * con el combo jcb
+     */
     public static <T> int findItemIndex(JComboBox jcb, T obj1) {
         DefaultComboBoxModel<T> dcbm = (DefaultComboBoxModel<T>) jcb.getModel();
         for (int i = 0; i < dcbm.getSize(); i++) {
@@ -207,4 +236,37 @@ public class MySwingUtil {
         }
     }
 
-}
+     public static class ColumnaNoNumericaException extends Exception {
+        public ColumnaNoNumericaException(int fila) {
+            super("La celda en la fila " + fila + " no contiene un valor numérico.");
+        }
+    }
+    
+    /**
+     *  Performs the sum of the column called column, and returns the result of the sum. 
+     * If any of the values ​​in the column are NOT numeric, an exception is returned
+     * @param tabla la tabla con que se va a trabajar
+     * @param columna la columna a sumar
+     * @return  la sumatoria de la columna en cuestión
+     * @throws com.fvgprinc.tools.utilities.MySwingUtil.ColumnaNoNumericaException 
+     */
+    public static double columnSum(JTable tabla, int columna) throws ColumnaNoNumericaException {
+        if (tabla == null || columna < 0 || columna >= tabla.getColumnCount()) {
+            throw new IllegalArgumentException("Parámetros inválidos");
+        }
+
+        TableModel modelo = tabla.getModel();
+        double suma = 0;
+
+        for (int fila = 0; fila < modelo.getRowCount(); fila++) {
+            Object valor = modelo.getValueAt(fila, columna);
+            if (valor instanceof Number) {
+                suma += ((Double) valor); // Sumamos como double para mayor precisión
+            } else {
+                // Manejar el caso en que el valor no sea un número (por ejemplo, mostrar un mensaje de error)
+               throw new ColumnaNoNumericaException(fila);
+            }
+        }
+        return suma;
+      }
+    }

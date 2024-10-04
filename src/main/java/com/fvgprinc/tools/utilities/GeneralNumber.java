@@ -1,5 +1,6 @@
 package com.fvgprinc.tools.utilities;
 
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,5 +31,18 @@ public class GeneralNumber {
             res = false;
         }
         return res;
+     }
+     
+     /**
+      * Generate a ramdom int number between 1.. maxNumber
+      * @param maxNumer numero aleatorio, máximo retornado por la función
+      * @return 
+      */
+     public static int genRandomInt(int maxNumer) {
+         int res;
+         
+          Random random = new Random();
+          res = random.nextInt(2000)  + 1;
+          return res;
      }
 }
