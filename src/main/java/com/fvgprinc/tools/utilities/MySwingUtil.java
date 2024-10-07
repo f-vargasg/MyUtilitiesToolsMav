@@ -16,6 +16,8 @@ import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -74,6 +76,10 @@ public class MySwingUtil {
 
             }
         }
+    }
+    
+    public static void initUiLookAndFeel(LookAndFeel newLookAndFeel) throws UnsupportedLookAndFeelException {
+        UIManager.setLookAndFeel(newLookAndFeel);
     }
 
     public static void mostrarMensaje(String mensaje, int tipo, String titulo) {
