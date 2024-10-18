@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -275,4 +276,14 @@ public class MySwingUtil {
         }
         return suma;
       }
+    
+    public static <T> void initCombo (List<T> lst, JComboBox<T> cmb) {
+           DefaultComboBoxModel<T> model = (DefaultComboBoxModel<T>) cmb.getModel();
+        for (T tipoLugar : lst) {
+            model.addElement(tipoLugar);
+        }
     }
+
+}
+
+

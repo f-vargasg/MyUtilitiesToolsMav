@@ -1,5 +1,6 @@
 package com.fvgprinc.tools.utilities.swing;
 
+import com.fvgprinc.tools.string.MyCommonString;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -7,12 +8,13 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JTextField;
+
 /*
     Ok, no todo es color de rosa, que tengo que hacer 
-*/
+ */
 public class EntidadManager {
 
-        // Método para poblar los valores de la entidad a los componentes
+    // Método para poblar los valores de la entidad a los componentes
     public static <T> void mapEntityToComponents(T entity, Map<String, JComponent> components) throws Exception {
         Class<?> clazz = entity.getClass();
 
@@ -31,6 +33,10 @@ public class EntidadManager {
 
             // Asignar el valor al componente correspondiente
             setValueToComponent(component, value);
+
+            if (component instanceof JTextField) {
+                System.out.println("voy por aquí: " + ((JTextField) component).getText());
+            }
         }
     }
 
@@ -61,10 +67,17 @@ public class EntidadManager {
     }
 
     // Método para asignar el valor a un componente Swing
-    
     private static void setValueToComponent(JComponent component, Object value) {
-        if (component instanceof JTextField && value instanceof String) {
-            ((JTextField) component).setText((String) value);
+        String valStr = MyCommonString.EMPTYSTR;
+        if (component instanceof JTextField) {
+            if (value instanceof String) {
+                ((JTextField) component).setText((String) value);
+            } else if ((value instanceof Integer) || (value instanceof Double)) {
+                 ((JTextField) component).setText(String.valueOf(value));
+            } else  {
+                ((JTextField) component).setText(String.valueOf(value));
+            }
+
         } else if (component instanceof JComboBox && value != null) {
             JComboBox<Object> comboBox = (JComboBox<Object>) component;
 
@@ -99,7 +112,7 @@ public class EntidadManager {
             }
         }
     }
-    
+
     private static boolean doesObjectMatchField(Object item, String fieldName, Object value) {
         try {
             if (item == null || value == null) {
@@ -131,7 +144,7 @@ public class EntidadManager {
             }
             // Manejar más conversiones según sea necesario
         } else if (component instanceof JComboBox) {
-           Object selectedItem = ((JComboBox<?>) component).getSelectedItem();
+            Object selectedItem = ((JComboBox<?>) component).getSelectedItem();
 
             // Verificar si hay una propiedad personalizada para seleccionar un atributo del objeto
             String fieldName = (String) component.getClientProperty("fieldName");
