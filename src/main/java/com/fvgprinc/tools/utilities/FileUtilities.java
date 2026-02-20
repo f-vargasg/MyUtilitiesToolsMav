@@ -222,5 +222,27 @@ public class FileUtilities {
             Desktop.getDesktop().open(carpeta);
         }
     }
+   /**
+     * Abre un JFileChooser para permitir la selección de múltiples archivos.
+     */
+    public static File[] getMultSelectedFiles(Component parent) {
+        // Crea un objeto JFileChooser.
+        JFileChooser fileChooser = new JFileChooser();
+        File[] archivosSeleccionados = null;
 
+        // Permite la selección de múltiples archivos.
+        fileChooser.setMultiSelectionEnabled(true);
+
+        // Muestra el diálogo para "Abrir" un archivo.
+        // El método devuelve un entero que indica si el usuario ha aceptado o cancelado.
+        int resultado = fileChooser.showOpenDialog(parent);
+
+        // Comprueba si el usuario hizo clic en el botón "Abrir".
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+               archivosSeleccionados = fileChooser.getSelectedFiles();
+        } /* else if (resultado == JFileChooser.CANCEL_OPTION) {
+             
+        } */
+        return archivosSeleccionados;
+    }
 }

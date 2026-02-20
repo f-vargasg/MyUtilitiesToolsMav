@@ -1,6 +1,7 @@
 package com.fvgprinc.tools.utilities;
 
 import com.fvgprinc.tools.string.MyCommonString;
+import com.fvgprinc.tools.utilities.swing.ThemeManager;
 import java.awt.Component;
 import java.awt.Container;
 import java.util.ArrayList;
@@ -49,8 +50,9 @@ public class MySwingUtil {
     public static final String LFWINDOWS = "Windows";
     public static final String LFWINDOWSCLASSIC = "Windows Classic";
 
-    /*
-    
+    /**
+    * @deprecated Este método ya no se usa
+    * Use {@link #initLookAndFeel(String, Component()} que sí funciona
      */
     public static void initUiLookAndFeel(String lafName) {
         /* Set the Nimbus look and feel */
@@ -79,8 +81,8 @@ public class MySwingUtil {
         }
     }
     
-    public static void initUiLookAndFeel(LookAndFeel newLookAndFeel) throws UnsupportedLookAndFeelException {
-        UIManager.setLookAndFeel(newLookAndFeel);
+     public static void initUiLookAndFeel(String lafName, Component root) {
+         ThemeManager.setSkin(lafName, root);
     }
 
     public static void mostrarMensaje(String mensaje, int tipo, String titulo) {
