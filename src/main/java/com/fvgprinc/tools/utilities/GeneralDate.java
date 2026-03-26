@@ -8,6 +8,8 @@ import com.fvgprinc.tools.string.MyCommonString;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -57,7 +59,7 @@ public class GeneralDate {
     public static final String DATEFORMATCRC = "dd/MM/yyyy";    // formato estandar
     public static final String DATEFORMATSTD = "yyyy-MM-dd";
 =======
-    */
+     */
     public static final String DATEFORMATCRC = "dd/MM/yyyy";    // formato estandar Costa Rica
     public static final String DATEFORMATSTD = "yyyy-MM-dd";    // formato estandar Costa Rica
 //>>>>>>> origin/master
@@ -368,7 +370,7 @@ public class GeneralDate {
 
         return res;
     }
-    
+
     public static String convertSqlDate2String(java.sql.Date pDate, String pattern) {
         String res = MyCommonString.EMPTYSTR;
 
@@ -381,7 +383,7 @@ public class GeneralDate {
         return res;
     }
 
-/*
+    /*
     public static String convertSqlDate2String(java.sql.Date pDate, String pDateFormat) {
         String res = MyCommonString.EMPTYSTR;
 
@@ -393,7 +395,7 @@ public class GeneralDate {
 
         return res;
     }
-*/
+     */
     /**
      * Returns the java.sql.date convertion from pStrDate
      *
@@ -451,6 +453,17 @@ public class GeneralDate {
         formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         res = formatter.format(pTimeStamp);
         return res;
+    }
+
+    public static String convertLocalDateTime2String(LocalDateTime miFecha) throws ParseException {
+
+       // 2. Defines el "molde" o formato que deseas
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        // 3. Ejecutas la conversión usando el método .format()
+        String fechaEnTexto = miFecha.format(formatter);
+
+        return fechaEnTexto;
     }
 
     /**
