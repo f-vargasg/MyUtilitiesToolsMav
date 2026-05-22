@@ -7,6 +7,7 @@ import java.awt.Container;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -49,8 +50,8 @@ public class MySwingUtil {
     public static final String LFWINDOWSCLASSIC = "Windows Classic";
 
     /**
-    * @deprecated Este método ya no se usa
-    * Use {@link #initLookAndFeel(String, Component()} que sí funciona
+     * @deprecated Este método ya no se usa Use
+     * {@link #initLookAndFeel(String, Component()} que sí funciona
      */
     public static void initUiLookAndFeel(String lafName) {
         /* Set the Nimbus look and feel */
@@ -78,9 +79,9 @@ public class MySwingUtil {
             }
         }
     }
-    
-     public static void initUiLookAndFeel(String lafName, Component root) {
-         ThemeManager.setSkin(lafName, root);
+
+    public static void initUiLookAndFeel(String lafName, Component root) {
+        ThemeManager.setSkin(lafName, root);
     }
 
     public static void mostrarMensaje(String mensaje, int tipo, String titulo) {
@@ -189,6 +190,37 @@ public class MySwingUtil {
     }
 
     /**
+     * Posiciona un JComboBox en el elemento que coincida con el ID buscado.
+     *
+     * @param <T> El tipo de objeto que contiene el combo (ej. Compania, Rol)
+     * @param combo El JComboBox físico de la pantalla
+     * @param idBuscado El ID que queremos encontrar (ej. 5)
+     * @param extractorDeId Una función que le dice al método cómo obtener el ID
+     * del objeto
+     */
+    public static <T> void findInComboById(JComboBox<T> combo, int idBuscado, Function<T, Integer> extractorDeId) {
+
+        // Si el combo es nulo o no tiene items, no hacemos nada
+        if (combo == null || combo.getItemCount() == 0) {
+            return;
+        }
+
+        // Recorremos el combo
+        for (int i = 0; i < combo.getItemCount(); i++) {
+            T item = combo.getItemAt(i);
+
+            // Verificamos que el item no sea nulo y usamos el extractor para sacar su ID
+            if (item != null && extractorDeId.apply(item) == idBuscado) {
+                combo.setSelectedIndex(i);
+                return; // Encontramos el objeto, salimos del método
+            }
+        }
+
+        // Opcional: Si el ID no existe en la lista, lo dejamos en el índice 0 ("--Seleccione--")
+        combo.setSelectedIndex(0);
+    }
+
+    /**
      *
      * @param container Define el componente a deshabilitar
      * @param activar Indica si se activa (true) o si se desactiva (false)
@@ -243,19 +275,23 @@ public class MySwingUtil {
         }
     }
 
-     public static class ColumnaNoNumericaException extends Exception {
+    public static class ColumnaNoNumericaException extends Exception {
+
         public ColumnaNoNumericaException(int fila) {
             super("La celda en la fila " + fila + " no contiene un valor numérico.");
         }
     }
-    
+
     /**
-     *  Performs the sum of the column called column, and returns the result of the sum. 
-     * If any of the values ​​in the column are NOT numeric, an exception is returned
+     * Performs the sum of the column called column, and returns the result of
+     * the sum. If any of the values ​​in the column are NOT numeric, an
+     * exception is returned
+     *
      * @param tabla la tabla con que se va a trabajar
      * @param columna la columna a sumar
-     * @return  la sumatoria de la columna en cuestión
-     * @throws com.fvgprinc.tools.utilities.MySwingUtil.ColumnaNoNumericaException 
+     * @return la sumatoria de la columna en cuestión
+     * @throws
+     * com.fvgprinc.tools.utilities.MySwingUtil.ColumnaNoNumericaException
      */
     public static double columnSum(JTable tabla, int columna) throws ColumnaNoNumericaException {
         if (tabla == null || columna < 0 || columna >= tabla.getColumnCount()) {
@@ -271,19 +307,17 @@ public class MySwingUtil {
                 suma += ((Double) valor); // Sumamos como double para mayor precisión
             } else {
                 // Manejar el caso en que el valor no sea un número (por ejemplo, mostrar un mensaje de error)
-               throw new ColumnaNoNumericaException(fila);
+                throw new ColumnaNoNumericaException(fila);
             }
         }
         return suma;
-      }
-    
-    public static <T> void initCombo (List<T> lst, JComboBox<T> cmb) {
-           DefaultComboBoxModel<T> model = (DefaultComboBoxModel<T>) cmb.getModel();
+    }
+
+    public static <T> void initCombo(List<T> lst, JComboBox<T> cmb) {
+        DefaultComboBoxModel<T> model = (DefaultComboBoxModel<T>) cmb.getModel();
         for (T tipoLugar : lst) {
             model.addElement(tipoLugar);
         }
     }
 
 }
-
-
