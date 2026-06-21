@@ -164,6 +164,16 @@ public class MySwingUtil {
         jfrm.setLocationRelativeTo(null);
         jfrm.setVisible(true);
     }
+    
+    public static <T> void fillCombo (JComboBox jcb, List lst) {
+            JComboBox<T> cmb = jcb;
+            DefaultComboBoxModel<T> modelCombo = (DefaultComboBoxModel<T>) jcb.getModel();
+            for (Object t : lst) {
+                if (modelCombo.getIndexOf(t) == -1) {
+                    cmb.addItem((T) t);
+                }
+            }
+    }
 
     /**
      * }
