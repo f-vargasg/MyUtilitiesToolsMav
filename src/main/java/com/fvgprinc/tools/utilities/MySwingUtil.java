@@ -164,15 +164,44 @@ public class MySwingUtil {
         jfrm.setLocationRelativeTo(null);
         jfrm.setVisible(true);
     }
-    
-    public static <T> void fillCombo (JComboBox jcb, List lst) {
-            JComboBox<T> cmb = jcb;
-            DefaultComboBoxModel<T> modelCombo = (DefaultComboBoxModel<T>) jcb.getModel();
-            for (Object t : lst) {
-                if (modelCombo.getIndexOf(t) == -1) {
-                    cmb.addItem((T) t);
-                }
+
+    /**
+     * @deprecated Este método está obsoleto. Se recomienda utilizar
+     * {@link #llenarCombo} en su lugar.
+     */
+    @Deprecated
+    public static <T> void fillCombo(JComboBox jcb, List lst) {
+        JComboBox<T> cmb = jcb;
+        DefaultComboBoxModel<T> modelCombo = (DefaultComboBoxModel<T>) jcb.getModel();
+        for (Object t : lst) {
+            if (modelCombo.getIndexOf(t) == -1) {
+                cmb.addItem((T) t);
             }
+        }
+    }
+
+    /**
+     * Llena un JComboBox con una lista de elementos de forma genérica, evitando
+     * duplicados basados en el método equals() del objeto.
+     *
+     * * @param <T> El tipo de entidad (Compania, Rol, Usuario, etc.)
+     * @param comboBox El JComboBox que se desea llenar
+     * @param items La lista de elementos con los que se llenará el combo
+     */
+    public static <T> void llenarComboBox(JComboBox<T> comboBox, List<T> items) {
+        if (comboBox == null || items == null) {
+            return;
+        }
+
+        // Obtenemos el modelo actual del combo, casteado de forma segura
+        DefaultComboBoxModel<T> model = (DefaultComboBoxModel<T>) comboBox.getModel();
+
+        for (T item : items) {
+            // equals() debe estar correctamente implementado en tu entidad <T>
+            if (model.getIndexOf(item) == -1) {
+                comboBox.addItem(item);
+            }
+        }
     }
 
     /**
