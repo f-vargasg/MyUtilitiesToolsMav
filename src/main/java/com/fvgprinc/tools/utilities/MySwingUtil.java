@@ -192,7 +192,7 @@ public class MySwingUtil {
         if (comboBox == null || items == null) {
             return;
         }
-
+        comboBox.removeAllItems();
         // Obtenemos el modelo actual del combo, casteado de forma segura
         DefaultComboBoxModel<T> model = (DefaultComboBoxModel<T>) comboBox.getModel();
 
@@ -257,6 +257,30 @@ public class MySwingUtil {
 
         // Opcional: Si el ID no existe en la lista, lo dejamos en el índice 0 ("--Seleccione--")
         combo.setSelectedIndex(0);
+    }
+    
+    /**
+     * Extrae un valor (como un ID) del elemento seleccionado en un JComboBox.
+     * 
+     * @param <T> El tipo de objeto guardado en el JComboBox (ej: Aplicacion, Menu, Persona)
+     * @param <R> El tipo de dato que quieres extraer (ej: Integer, Long, String)
+     * @param combo El JComboBox a evaluar.
+     * @param idExtractor Expresión lambda o método de referencia que obtiene el ID (ej: Aplicacion::getIdApp).
+     * @return El ID extraído o null si no hay nada seleccionado.
+     */
+    public static <T, R> R getSelectedId(JComboBox<T> combo, Function<T, R> idExtractor) {
+        if (combo != null && combo.getSelectedItem() != null) {
+            // Intentamos convertir de forma segura el ítem seleccionado al tipo T
+            Object selectedItem = combo.getSelectedItem();
+            try {
+                @SuppressWarnings("unchecked")
+                T item = (T) selectedItem;
+                return idExtractor.apply(item);
+            } catch (ClassCastException e) {
+                return null;
+            }
+        }
+        return null;
     }
 
     /**
