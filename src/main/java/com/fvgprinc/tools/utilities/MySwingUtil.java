@@ -203,6 +203,35 @@ public class MySwingUtil {
             }
         }
     }
+    
+       /**
+     * Llena un JComboBox con una lista de elementos de forma genérica, evitando
+     * duplicados basados en el método equals() del objeto.
+     *
+     * * @param <T> El tipo de entidad (Compania, Rol, Usuario, etc.)
+     * @param <T>
+     * @param comboBox El JComboBox que se desea llenar
+     * @param items La lista de elementos con los que se llenará el combo
+     * @param clearCombo Si True la funcion limpia los valores del combo false no.
+     */
+    public static <T> void llenarComboBox(JComboBox<T> comboBox, List<T> items, boolean clearCombo) {
+        if (comboBox == null || items == null) {
+            return;
+        }
+        if (clearCombo) {
+              comboBox.removeAllItems();
+        }
+      
+        // Obtenemos el modelo actual del combo, casteado de forma segura
+        DefaultComboBoxModel<T> model = (DefaultComboBoxModel<T>) comboBox.getModel();
+
+        for (T item : items) {
+            // equals() debe estar correctamente implementado en tu entidad <T>
+            if (model.getIndexOf(item) == -1) {
+                comboBox.addItem(item);
+            }
+        }
+    }
 
     /**
      * }
@@ -237,19 +266,51 @@ public class MySwingUtil {
      * @param extractorDeId Una función que le dice al método cómo obtener el ID
      * del objeto
      */
+    /*
     public static <T> void findInComboById(JComboBox<T> combo, int idBuscado, Function<T, Integer> extractorDeId) {
 
         // Si el combo es nulo o no tiene items, no hacemos nada
         if (combo == null || combo.getItemCount() == 0) {
             return;
         }
-
+        
         // Recorremos el combo
         for (int i = 0; i < combo.getItemCount(); i++) {
             T item = combo.getItemAt(i);
 
             // Verificamos que el item no sea nulo y usamos el extractor para sacar su ID
             if (item != null && extractorDeId.apply(item) == idBuscado) {
+                combo.setSelectedIndex(i);
+                return; // Encontramos el objeto, salimos del método
+            }
+        }
+
+        // Opcional: Si el ID no existe en la lista, lo dejamos en el índice 0 ("--Seleccione--")
+        combo.setSelectedIndex(0);
+    }
+    */
+    public static <T> void findInComboById(JComboBox<T> combo, Integer idBuscado, Function<T, Integer> extractorDeId) {
+
+        // Si el combo es nulo o no tiene items, no hacemos nada
+        if (combo == null || combo.getItemCount() == 0) {
+            return;
+        }
+        
+        // 1. MANEJO DE NULOS Y DUMMYS:
+        // Si el ID viene nulo de la entidad (BD), o es un valor dummy (ej. -1 o 0),
+        // forzamos el combo a volver a la posición de "-- Seleccione --"
+        if (idBuscado == null || idBuscado <= 0) {
+            combo.setSelectedIndex(0);
+            return;
+        }
+        
+        // Recorremos el combo
+        for (int i = 0; i < combo.getItemCount(); i++) {
+            T item = combo.getItemAt(i);
+
+            // 2. Verificamos que el item no sea nulo y extraemos su ID.
+            // Usamos .equals() en lugar de == porque ahora estamos comparando objetos Integer
+            if (item != null && extractorDeId.apply(item) != null && extractorDeId.apply(item).equals(idBuscado)) {
                 combo.setSelectedIndex(i);
                 return; // Encontramos el objeto, salimos del método
             }
